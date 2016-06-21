@@ -57,12 +57,12 @@ double'
 
 (defn behave [animal]
   (case animal
-   :dog [:wag-tail
-         :bark]
-   :rat [:scurry
-         :squeak]
-   :cat [:rub-legs
-         :scratch-carpet]))
+    :dog [:wag-tail
+          :bark]
+    :rat [:scurry
+          :squeak]
+    :cat [:rub-legs
+          :scratch-carpet]))
 
 (defmulti behave identity)
 (defmethod behave :dog [_]
@@ -116,7 +116,7 @@ double'
   (let [db (atom db)]
     (list
       (fn [key]
-       (@db key))
+        (@db key))
       (fn [key val]
         (swap! db assoc key val)
         key)
@@ -168,9 +168,9 @@ double'
 
 (defn our-length' [lst]
   (letfn [(rec [lst acc]
-           (if (empty? lst)
-             acc
-             (recur (rest lst) (inc acc))))]
+            (if (empty? lst)
+              acc
+              (recur (rest lst) (inc acc))))]
     (rec lst 0)))
 
 (defn triangle [n]
