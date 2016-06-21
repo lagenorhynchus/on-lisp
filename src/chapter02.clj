@@ -131,3 +131,51 @@ double'
 
 (defn lookup [key db]
   ((first db) key))
+
+;;;; 2.7
+
+(map (fn [x] (+ 2 x))
+     '(2 5 7 3))
+
+(defn list+ [lst n]
+  (map (fn [x] (+ x n))
+       lst))
+
+(letfn [(inc' [x] (inc x))]
+  (inc' 3))
+
+(defn count-instances [obj lsts]
+  (letfn [(instances-in [lst]
+            (if (seq lst)
+              (+ (if (identical? (first lst) obj) 1 0)
+                 (instances-in (rest lst)))
+              0))]
+    (map instances-in lsts)))
+
+(count-instances :a '((:a :b :c) (:d :a :r :p :a) (:d :a :r) (:a :a)))
+
+;;;; 2.8
+
+(defn our-length [lst]
+  (if (empty? lst)
+    0
+    (inc (our-length (rest lst)))))
+
+(defn our-find-if [f lst]
+  (if (f (first lst))
+    (first lst)
+    (recur f (rest lst))))
+
+(defn our-length' [lst]
+  (letfn [(rec [lst acc]
+           (if (empty? lst)
+             acc
+             (recur (rest lst) (inc acc))))]
+    (rec lst 0)))
+
+(defn triangle [n]
+  (letfn [(tri [c n]
+            (if (zero? n)
+              c
+              (recur (+ n c) (dec n))))]
+    (tri 0 n)))
