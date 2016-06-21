@@ -10,16 +10,17 @@
 double'
 #'double'
 
-(= double' (first (list double')))
-(= #'double' (first (list #'double')))
+(identical? double' (first (list double')))
+(identical? #'double' (first (list #'double')))
 
 ((fn [x] (* x 2)) 3)
 
+double'
 (var-get #'double')
 
 (def x concat)
-
-(= (var-get #'x) (var-get #'concat))
+(identical? x concat)
+(identical? (var-get #'x) (var-get #'concat))
 
 (def double'' (fn [x] (* x 2)))
 
@@ -45,12 +46,12 @@ double'
 
 (remove even? '(1 2 3 4 5 6 7))
 
-(defn our-remove [f lst]
+(defn our-remove-if [f lst]
   (if (empty? lst)
     []
     (if (f (first lst))
-      (our-remove f (rest lst))
-      (cons (first lst) (our-remove f (rest lst))))))
+      (our-remove-if f (rest lst))
+      (cons (first lst) (our-remove-if f (rest lst))))))
 
 ;;;; 2.4
 
@@ -73,3 +74,60 @@ double'
 (let [y 7]
   (defn scope-test [x]
     (list x y)))
+
+(let [y 5]
+  (scope-test 3))
+
+;;;; 2.6
+
+(defn list+ [lst n]
+  (map (fn [x] (+ x n))
+       lst))
+
+(list+ '(1 2 3) 10)
+
+(let [counter (atom 0)]
+  (defn new-id []
+    (swap! counter inc))
+  (defn reset-id []
+    (reset! counter 0)))
+
+(defn make-adder [n]
+  (fn [x] (+ x n)))
+
+(def add2 (make-adder 2))
+(def add10 (make-adder 10))
+(add2 5)
+(add10 3)
+
+(defn make-adderb [n]
+  (let [n (atom n)]
+    (fn [x & [change?]]
+      (if change?
+        (reset! n x)
+        (+ x @n)))))
+
+(def addx (make-adderb 1))
+(addx 3)
+(addx 100 true)
+(addx 3)
+
+(defn make-dbms [db]
+  (let [db (atom db)]
+    (list
+      (fn [key]
+       (@db key))
+      (fn [key val]
+        (swap! db assoc key val)
+        key)
+      (fn [key]
+        (swap! db dissoc key)
+        key))))
+
+(def cities (make-dbms {:boston :us :paris :france}))
+((first cities) :boston)
+((second cities) :london :england)
+((first cities) :london)
+
+(defn lookup [key db]
+  ((first db) key))
