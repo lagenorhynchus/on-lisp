@@ -141,6 +141,23 @@ double'
   (map (fn [x] (+ x n))
        lst))
 
+(def fact (fn [f n]
+            (if (zero? n)
+              1
+              (* n (f f (dec n))))))
+
+(defn recurser [f]
+  (fn [& args]
+    (apply f f args)))
+
+((recurser fact) 8)
+
+((fn [f] (fn [& args] (apply f f args)))
+ (fn [f n]
+   (if (zero? n)
+     1
+     (* n (f f (dec n))))))
+
 (letfn [(inc' [x] (inc x))]
   (inc' 3))
 
