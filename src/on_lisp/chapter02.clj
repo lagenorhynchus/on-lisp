@@ -1,4 +1,4 @@
-(ns on-lisp.chapter02)
+(ns chapter02)
 
 ;;;; 2.2
 

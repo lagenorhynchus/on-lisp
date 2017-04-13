@@ -1,4 +1,4 @@
-(ns on-lisp.chapter03
+(ns chapter03
   (:require [clojure.math.numeric-tower :refer [expt]]))
 
 ;;;; 3.1
