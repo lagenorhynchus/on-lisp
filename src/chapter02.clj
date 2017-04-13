@@ -1,6 +1,8 @@
 (ns on-lisp.chapter02)
 
-;;;; 2.2
+;;;; 2. Functions
+
+;;; 2.2 Defining Functions
 
 (defn double' [x]
   (* x 2))
@@ -24,7 +26,7 @@ double'
 
 (def double'' (fn [x] (* x 2)))
 
-;;;; 2.3
+;;; 2.3 Functional Arguments
 
 (+ 1 2)
 (apply + '(1 2))
@@ -53,7 +55,7 @@ double'
       (our-remove-if f (rest lst))
       (cons (first lst) (our-remove-if f (rest lst))))))
 
-;;;; 2.4
+;;; 2.4 Functions as Properties
 
 (defn behave [animal]
   (case animal
@@ -69,7 +71,7 @@ double'
   [:wag-tail
    :bark])
 
-;;;; 2.5
+;;; 2.5 Scope
 
 (let [y 7]
   (defn scope-test [x]
@@ -78,7 +80,7 @@ double'
 (let [y 5]
   (scope-test 3))
 
-;;;; 2.6
+;;; 2.6 Closures
 
 (defn list+ [lst n]
   (map (fn [x] (+ x n))
@@ -132,7 +134,7 @@ double'
 (defn lookup [key db]
   ((first db) key))
 
-;;;; 2.7
+;;; 2.7 Local Functions
 
 (map (fn [x] (+ 2 x))
      '(2 5 7 3))
@@ -171,7 +173,7 @@ double'
 
 (count-instances :a '((:a :b :c) (:d :a :r :p :a) (:d :a :r) (:a :a)))
 
-;;;; 2.8
+;;; 2.8 Tail-Recursion
 
 (defn our-length [lst]
   (if (empty? lst)

@@ -1,7 +1,9 @@
 (ns on-lisp.chapter03
   (:require [clojure.math.numeric-tower :refer [expt]]))
 
-;;;; 3.1
+;;;; 3. Functional Programming
+
+;;; 3.1 Functional Design
 
 (defn good-reverse [lst]
   (letfn [(rev [lst acc]
@@ -10,7 +12,7 @@
               (recur (rest lst) (cons (first lst) acc))))]
     (rev lst ())))
 
-;;;; 3.2
+;;; 3.2 Imperative Outside-In
 
 (defn fun [x]
   (list :a (expt (first x) 2)))
