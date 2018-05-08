@@ -1,4 +1,4 @@
 on-lisp
 =======
 
-Study notes on [『On Lisp』](https://estore.ohmsha.co.jp/titles/978427406637P)([*On Lisp*](http://www.paulgraham.com/onlisp.html)).
+Study notes on [『On Lisp』](http://shop.ohmsha.co.jp/shop/shopdetail.html?brandcode=000000001726)([*On Lisp*](http://www.paulgraham.com/onlisp.html)).
